@@ -23,6 +23,98 @@
 - [English](https://nezhahq.github.io/en_US/index.html)
 - [中文文档](https://nezhahq.github.io/index.html)
 
+## Instalation
+**install Nezha Monitoring** di VPS (Ubuntu 20.04/22.04). Nezha adalah panel monitoring seperti uptime monitor (mirip dengan Uptime Kuma) yang menggunakan agen client-server.
+
+---
+
+## 🔧 Persiapan
+
+1. Gunakan VPS dengan sistem operasi **Ubuntu 20.04 / 22.04**.
+2. Akses root atau user dengan sudo.
+3. Port yang harus terbuka:
+
+   * **TCP 80 & 443** (web dashboard)
+   * **TCP 5555** (default Nezha server port)
+   * **UDP 443** (untuk agen komunikasi via QUIC)
+
+---
+
+## 🖥️ Install Nezha Server
+
+### 1. Update & Install dependencies
+
+```bash
+sudo apt update && sudo apt install -y curl wget unzip socat
+```
+
+### 2. Install Docker & Docker Compose
+
+```bash
+curl -fsSL https://get.docker.com | bash
+```
+
+---
+
+### 3. Jalankan Script Auto Install Server
+
+Gunakan script resmi Nezha Server (dari GitHub):
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/nezhahq/nezhahq/main/script/install_server.sh)
+```
+
+Ikuti instruksi:
+
+* Masukkan domain (wajib sudah mengarah ke IP VPS)
+* Script akan mengatur SSL otomatis via `acme.sh`
+* Setelah selesai, panel akan tersedia di `https://domain-anda`
+
+---
+
+## 🧾 Login Nezha Panel
+
+Setelah berhasil, buka `https://domain-anda`
+Login default:
+
+* **Username:** `admin`
+* **Password:** `admin`
+
+Ganti password setelah login pertama.
+
+---
+
+## ⚙️ Install Nezha Agent (Di VPS/Server yang akan dimonitor)
+
+Login ke dashboard → Tambah Agen → Salin perintah install agent.
+Contoh perintah:
+
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/nezhahq/nezhahq/main/script/install_agent.sh) \
+--server your-domain.com:443 --key AGENT-KEY
+```
+
+> Pastikan VPS agent bisa konek ke domain server Nezha (port 443 UDP terbuka).
+
+---
+
+## 🔁 Cek Status
+
+* Setelah agent dijalankan, status server akan muncul di dashboard.
+* Jika tidak muncul, pastikan port dan domain benar.
+
+---
+
+## 📌 Tips Tambahan
+
+* Gunakan Cloudflare DNS untuk domain.
+* Aktifkan firewall hanya jika port 80, 443, dan 5555 (TCP) serta 443 (UDP) dibuka.
+* Untuk multi-server monitoring, cukup jalankan agent di tiap VPS.
+
+---
+
+
+
 ## Contributing
 
 ### Translation
