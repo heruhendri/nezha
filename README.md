@@ -61,7 +61,7 @@ curl -fsSL https://get.docker.com | bash
 Gunakan script resmi Nezha Server (dari GitHub):
 
 ```bash
-bash <(curl -Ls https://raw.githubusercontent.com/nezhahq/nezhahq/main/script/install_server.sh)
+bash <(curl -Ls https://raw.githubusercontent.com/heruhendri/nezhahq/main/script/install_server.sh)
 ```
 
 Ikuti instruksi:
